@@ -22,11 +22,12 @@ get_mut = function(kmer) {
 #' @export
 #'
 #' @examples
+#' if (requireNamespace("seqinr", quietly = TRUE)) {
 #' mut_dt = data.frame(donor_id = c('PD1','PD2'), chromosome = c('3', 'X'), chrom_start = c(5,7), chrom_end = c(5,7), reference_genome_allele = c('A','C'), mutated_from_base = c('A','C'), mutated_to_base = c('T', 'A'))
 #' seq = seqinr::s2c('AGCTAGCTGA')
 #' get_context = get_context_param(seq, k = 3)
 #' apply(mut_dt, MARGIN = 1, get_context)
-#'
+#'}
 get_context_param = function(seq, k = 3) {
   # k is the kmer size
   if(k %% 2 != 1 | k <= 1) stop("k should be an odd number greater than 1")
