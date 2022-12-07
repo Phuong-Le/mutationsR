@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of mutationsR is to ...
+mutationsR is a tool to manipulate mutation data
 
 ## Installation
 
@@ -30,25 +30,53 @@ You can install the development version of mutationsR like so:
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Manipulating mutations as strings, you can get the central mutations from their k-mer context, get the wildtype sequence and get reverse complementary sequences.
 
-```{r example}
+```{r strings}
 library(mutationsR)
-## basic example code
+## 
+## getting the central mutation
+get_mut('A[C>T]G')
+## getting the wildtype mutation
+get_wt_seq('A[C>T]G')
+## getting reverse complementary mutations
+rv_context('A[C>G]T')
+# this can be expanded so that all mutations from C and T are remained, and all mutations from A and G are converted to their reverse complementary counterparts
+strand_symmetric('A[C>G]T')
+strand_symmetric('A[A>G]T')
+
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+If you have a MAF file (mutation data provided  by the ICGC portal), you can compute the k-mer mutations, given the reference genome sequence like so
 
-```{r cars}
-summary(cars)
+
+```{r get contexts}
+library(mutationsR)
+if (requireNamespace("seqinr", quietly = TRUE)) {
+mut_dt = data.frame(donor_id = c('PD1','PD2'), chromosome = c('3', 'X'), chrom_start = c(5,7), chrom_end = c(5,7), reference_genome_allele = c('A','C'), mutated_from_base = c('A','C'), mutated_to_base = c('T', 'A'))
+seq = seqinr::s2c('AGCTAGCTGA')
+get_context = get_context_param(seq, k = 3)
+apply(mut_dt, MARGIN = 1, get_context)
+}
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
+If you need to get all mutation contexts, given a k-mer size, do the following (this is currently strand symmetric only)
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r gen contexts}
+library(mutationsR)
+gen_contexts(1)
+gen_contexts(3)
+gen_contexts(5)
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+You can also plot mutation spectra, for example
+
+```{r mutation spectra}
+library(mutationsR)
+kmer = gen_contexts(3)
+muts = get_wt_seq(kmer)
+value = 1:96
+spectra_dt = data.frame(kmer = kmer, muts = muts, value = value)
+spectra_plot(spectra_dt)
+```
+
