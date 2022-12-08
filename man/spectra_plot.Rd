@@ -7,7 +7,7 @@
 spectra_plot(spectra_dt, cols = NULL)
 }
 \arguments{
-\item{spectra_dt}{spectra data, a dataframe with columns muts, kmer and value}
+\item{spectra_dt}{spectra data, a dataframe with columns kmer and value, where value can be anything correponding to kmer}
 
 \item{cols}{colour vector}
 }

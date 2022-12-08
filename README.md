@@ -85,9 +85,8 @@ You can also plot mutation spectra, for example
 ``` r
 library(mutationsR)
 kmer = gen_contexts(3)
-muts = sapply(kmer, get_mut)
 value = 1:96
-spectra_dt = data.frame(kmer = kmer, muts = muts, value = value)
+spectra_dt = data.frame(kmer = kmer, value = value)
 spectra_plot(spectra_dt)
 ```
 

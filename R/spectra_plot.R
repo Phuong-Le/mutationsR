@@ -1,14 +1,16 @@
 
 #' plots mutation spectra for the 3-mer
 #'
-#' @param spectra_dt spectra data, a dataframe with columns muts, kmer and value
+#' @param spectra_dt spectra data, a dataframe with columns kmer and value, where value can be anything correponding to kmer
 #' @param cols colour vector
 #' @return a ggplot of spectra
 #' @import ggplot2
 #' @export
 #'
 spectra_plot = function(spectra_dt, cols = NULL) {
-  spectra = dplyr::arrange(spectra_dt, muts, kmer)
+  spectra = spectra_dt
+  spectra$muts = sapply(spectra$kmer, get_mut)
+  spectra = dplyr::arrange(spectra, muts, kmer)
   spectra$short_kmer = sapply(spectra$kmer, get_wt_seq)
 
   xmin_rect = seq(0,95,16); xmax_rect = seq(15,96,16)
