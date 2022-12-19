@@ -33,7 +33,7 @@ if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("Biostrings")
 # install graphicsPLr
-devtools::install_github('Phuong-Le/graphicsPLr')
+if (!require("graphicsPLr")) devtools::install_github('Phuong-Le/graphicsPLr')
 
 # the package
 devtools::install_github('Phuong-Le/mutationsR')
