@@ -31,7 +31,7 @@ get_mut = function(kmer) {
 get_context_param = function(seq, k = 3) {
   # k is the kmer size
   if(k %% 2 != 1 | k <= 1) stop("k should be an odd number greater than 1")
-
+  force(seq)
   get_context = function(x) {
     pos = as.numeric(x[3])
     if (x[5] != seq[pos]) stop("reference base from mutation dataframe should be the same as in the genome assembly")
