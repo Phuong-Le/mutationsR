@@ -14,13 +14,15 @@ You can install the development version of mutationsR like so:
 
 ``` r
 #### installing the dependencies
-# install devtools
-if (!require("devtools")) install.packages("devtools")
+# install pacman
+if (!require("pacman")) install.packages("pacman")
+# install dependencies from CRAN
+pacman::p_install(devtools, ggplot2, dplyr, ggpubr)
 # install Biostrings
 if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install("Biostrings")
-# install graphicsPLr
+# install graphicsPLr from GitHub
 if (!require("graphicsPLr")) devtools::install_github('Phuong-Le/graphicsPLr')
 
 # the package
