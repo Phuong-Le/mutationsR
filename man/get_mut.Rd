@@ -2,7 +2,8 @@
 % Please edit documentation in R/get_mut.R
 \name{get_mut}
 \alias{get_mut}
-\title{Get the central mutation from a context mutation}
+\title{Get the central mutation from a context mutation,
+If only the central mutation is provided then return the mutation itself}
 \usage{
 get_mut(kmer)
 }
@@ -13,9 +14,11 @@ get_mut(kmer)
 a character of mutation
 }
 \description{
-Get the central mutation from a context mutation
+Get the central mutation from a context mutation,
+If only the central mutation is provided then return the mutation itself
 }
 \examples{
 get_mut('A[C>T]G')
+get_mut('C>T')
 
 }

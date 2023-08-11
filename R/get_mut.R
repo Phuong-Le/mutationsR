@@ -1,5 +1,6 @@
 
-#' Get the central mutation from a context mutation
+#' Get the central mutation from a context mutation,
+#' If only the central mutation is provided then return the mutation itself
 #'
 #' @param kmer a character for the kmer of interest
 #' @return a character of mutation
@@ -7,8 +8,11 @@
 #'
 #' @examples
 #' get_mut('A[C>T]G')
+#' get_mut('C>T')
 #'
 get_mut = function(kmer) {
+  if (nchar(kmer) == 3 & substr(kmer, 2, 2) == '>') return(kmer)
+
   tail_mer = strsplit(kmer,"[", fixed = T)[[1]][2]
   return(strsplit(tail_mer,"]", fixed = T)[[1]][1])
 }

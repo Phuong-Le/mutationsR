@@ -50,6 +50,7 @@ library(mutationsR)
 ## 
 ## getting the central mutation
 get_mut('A[C>T]G')
+get_mut('C>T')
 ## getting the wildtype mutation
 get_wt_seq('A[C>T]G')
 ## getting reverse complementary mutations

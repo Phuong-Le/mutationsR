@@ -41,6 +41,8 @@ library(mutationsR)
 ## getting the central mutation
 get_mut('A[C>T]G')
 #> [1] "C>T"
+get_mut('C>T')
+#> [1] "C>T"
 ## getting the wildtype mutation
 get_wt_seq('A[C>T]G')
 #> [1] "ACG"
