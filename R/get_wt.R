@@ -7,8 +7,9 @@
 #'@examples
 #'get_wt_seq('A[C>T]G')
 get_wt_seq = function(mut) {
-  sep1 = strsplit(mut, "[", fixed = T)[[1]]; base1 = sep1[1]
-  wt = strsplit(sep1[2], ">", fixed = T)[[1]][1]
-  base2 = strsplit(mut, "]", fixed = T)[[1]][2]
-  return(paste0(base1, wt, base2, sep=""))
+    sep1 = strsplit(mut, "[", fixed = T)[[1]]
+    base1 = sep1[1]
+    wt = strsplit(sep1[2], ">", fixed = T)[[1]][1]
+    base2 = strsplit(mut, "]", fixed = T)[[1]][2]
+    return(paste0(base1, wt, base2, sep = ""))
 }

@@ -11,10 +11,11 @@
 #' get_mut('C>T')
 #'
 get_mut = function(kmer) {
-  if (nchar(kmer) == 3 & substr(kmer, 2, 2) == '>') return(kmer)
+    if (nchar(kmer) == 3 & substr(kmer, 2, 2) == ">")
+        return(kmer)
 
-  tail_mer = strsplit(kmer,"[", fixed = T)[[1]][2]
-  return(strsplit(tail_mer,"]", fixed = T)[[1]][1])
+    tail_mer = strsplit(kmer, "[", fixed = T)[[1]][2]
+    return(strsplit(tail_mer, "]", fixed = T)[[1]][1])
 }
 
 #' get the relevant sequence & a kmer size and output a function that gets the context. This output function will be used in the apply function along a dataframe
@@ -26,23 +27,27 @@ get_mut = function(kmer) {
 #' @export
 #'
 #' @examples
-#' if (requireNamespace("seqinr", quietly = TRUE)) {
+#' if (requireNamespace('seqinr', quietly = TRUE)) {
 #' mut_dt = data.frame(donor_id = c('PD1','PD2'), chromosome = c('3', 'X'), chrom_start = c(5,7), chrom_end = c(5,7), reference_genome_allele = c('A','C'), mutated_from_base = c('A','C'), mutated_to_base = c('T', 'A'))
 #' seq = seqinr::s2c('AGCTAGCTGA')
 #' get_context = get_context_param(seq, k = 3)
 #' apply(mut_dt, MARGIN = 1, get_context)
 #'}
 get_context_param = function(seq, k = 3) {
-  # k is the kmer size
-  if(k %% 2 != 1 | k <= 1) stop("k should be an odd number greater than 1")
-  force(seq)
-  get_context = function(x) {
-    pos = as.numeric(x[3])
-    if (x[5] != seq[pos]) stop("reference base from mutation dataframe should be the same as in the genome assembly")
-    if (x[3] != x[4]) stop("sbs should have the same chrom_start and chrom_end")
-    flank = k %/% 2
-    result = paste0(seq[(pos-flank):(pos-1)], "[", x[6], ">", x[7], "]", seq[(pos+1):(pos+flank)])
-    return(result)
-  }
-  return(get_context)
+    # k is the kmer size
+    if (k%%2 != 1 | k <= 1)
+        stop("k should be an odd number greater than 1")
+    force(seq)  # force is required for every function factory as best practice
+    get_context = function(x) {
+        pos = as.numeric(x[3])
+        if (x[5] != seq[pos])
+            stop("reference base from mutation dataframe should be the same as in the genome assembly")
+        if (x[3] != x[4])
+            stop("sbs should have the same chrom_start and chrom_end")
+        flank = k%/%2
+        result = paste0(seq[(pos - flank):(pos - 1)], "[", x[6], ">", x[7], "]", seq[(pos + 1):(pos +
+            flank)])
+        return(result)
+    }
+    return(get_context)
 }
