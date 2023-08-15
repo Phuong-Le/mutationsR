@@ -20,7 +20,7 @@ get the relevant sequence & a kmer size and output a function that gets the cont
 Note that input to the get_context function should be of the following orders: donor_id, chromosome, chrom_start, chrom_end, reference_genome_allele, mutated_from_base, mutated_to_base
 }
 \examples{
-if (requireNamespace("seqinr", quietly = TRUE)) {
+if (requireNamespace('seqinr', quietly = TRUE)) {
 mut_dt = data.frame(donor_id = c('PD1','PD2'), chromosome = c('3', 'X'), chrom_start = c(5,7), chrom_end = c(5,7), reference_genome_allele = c('A','C'), mutated_from_base = c('A','C'), mutated_to_base = c('T', 'A'))
 seq = seqinr::s2c('AGCTAGCTGA')
 get_context = get_context_param(seq, k = 3)
