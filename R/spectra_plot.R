@@ -23,10 +23,10 @@ spectra_plot = function(spectra_dt, cols = NULL) {
     names(cols) = mut_types
 
     p1 = ggplot2::ggplot(spectra, mapping = aes(x = kmer, y = value, fill = muts)) + scale_x_discrete(limits = spectra$kmer,
-        labels = spectra$short_kmer) + scale_fill_manual(values = cols) + annotate("segment", x = xmin_rect,
-        xend = xmax_rect, y = Inf, yend = Inf, col = cols, linewidth = 10) + geom_col() + annotate("text",
-        x = 0:5 * 16 + 8, y = rep(Inf, 6), label = mut_types, vjust = 3) + xlab("") + ggpubr::theme_pubr(legend = "none",
-        x.text.angle = 90) + theme(axis.text.x = element_text(size = rel(0.5), angle = 90))
+        labels = spectra$short_kmer) + scale_fill_manual(values = cols) + annotate("segment", x = xmin_rect, xend = xmax_rect,
+        y = Inf, yend = Inf, col = cols, linewidth = 10) + geom_col() + annotate("text", x = 0:5 * 16 + 8, y = rep(Inf,
+        6), label = mut_types, vjust = 3) + xlab("") + ggpubr::theme_pubr(legend = "none", x.text.angle = 90) + theme(axis.text.x = element_text(size = rel(0.5),
+        angle = 90))
 
     return(p1)
 }

@@ -45,8 +45,7 @@ get_context_param = function(seq, k = 3) {
         if (x[3] != x[4])
             stop("sbs should have the same chrom_start and chrom_end")
         flank = k%/%2
-        result = paste0(seq[(pos - flank):(pos - 1)], "[", x[6], ">", x[7], "]", seq[(pos + 1):(pos +
-            flank)])
+        result = paste0(seq[(pos - flank):(pos - 1)], "[", x[6], ">", x[7], "]", seq[(pos + 1):(pos + flank)])
         return(result)
     }
     return(get_context)

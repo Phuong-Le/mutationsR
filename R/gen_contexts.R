@@ -22,10 +22,12 @@ gen_contexts = function(k) {
         return(mut_types)
 
     # get mutations and contexts
-    contexts = as.list(as.data.frame(matrix(rep(bases, flank*2), nrow = 4)))
+    contexts = as.list(as.data.frame(matrix(rep(bases, flank * 2), nrow = 4)))
     kmers = append(list(mut_types), contexts)
     kmers = do.call(expand.grid, kmers)
-    ordered_cols = c('muts', sapply(1:flank, function(x) paste0('left_',x)), sapply(1:flank, function(x) paste0('right_',x)))
+    ordered_cols = c("muts",
+                     sapply(1:flank, function(x) paste0("left_", x)),
+                     sapply(1:flank, function(x) paste0("right_",x)))
     colnames(kmers) = ordered_cols
 
     # order them alphabetically
@@ -33,12 +35,14 @@ gen_contexts = function(k) {
     kmers = do.call(dplyr::arrange, arg_ls)
 
     # order based on position on kmer
-    reordered_cols = c(sapply(1:flank, function(x) paste0('left_',x)), 'muts', sapply(1:flank, function(x) paste0('right_',x)))
+    reordered_cols = c(sapply(1:flank, function(x) paste0("left_", x)),
+                       "muts",
+                       sapply(1:flank, function(x) paste0("right_", x)))
     kmers = dplyr::select(kmers, reordered_cols)
 
     combine_mut_context = function(mut_context) {
-        mut_context = append(mut_context, ']', after = (flank + 1))
-        mut_context = append(mut_context, '[', after = flank)
+        mut_context = append(mut_context, "]", after = (flank + 1))
+        mut_context = append(mut_context, "[", after = flank)
         arg_ls = append(mut_context, list(sep = ""))
         result = do.call(paste0, arg_ls)
         return(result)
