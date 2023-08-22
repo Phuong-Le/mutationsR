@@ -38,7 +38,7 @@ gen_contexts = function(k) {
     reordered_cols = c(sapply(1:flank, function(x) paste0("left_", x)),
                        "muts",
                        sapply(1:flank, function(x) paste0("right_", x)))
-    kmers = dplyr::select(kmers, reordered_cols)
+    kmers = dplyr::select(kmers, all_of(reordered_cols))
 
     combine_mut_context = function(mut_context) {
         mut_context = append(mut_context, "]", after = (flank + 1))
