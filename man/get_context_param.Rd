@@ -3,21 +3,29 @@
 \name{get_context_param}
 \alias{get_context_param}
 \title{get the relevant sequence & a kmer size and output a function that gets the context. This output function will be used in the apply function along a dataframe
-Note that input to the get_context function should be of the following orders: donor_id, chromosome, chrom_start, chrom_end, reference_genome_allele, mutated_from_base, mutated_to_base}
+Note that input to the get_context function should be of the following orders if format_ is vcf (default):
+donor_id, chromosome, chrom_start, chrom_end, reference_genome_allele, mutated_from_base, mutated_to_base
+or this order if format_ is simplified
+donor_id (SampleID), chromosome (Chr), position (Pos), reference_base (Ref), mutated_base (Alt)}
 \usage{
-get_context_param(seq, k = 3)
+get_context_param(seq, k = 3, format_ = c("vcf", "simplified"))
 }
 \arguments{
 \item{seq}{a vector of characters representing a DNA sequence)}
 
 \item{k}{an odd number greater than 1, default to 3}
+
+\item{format_}{either 'vcf' (default) or 'simplified' depending on the input dataframe}
 }
 \value{
 a function to be applied to a dataframe, when applying the resulting function to a relevant dataframe, it returns a vector of mutations and their contexts
 }
 \description{
 get the relevant sequence & a kmer size and output a function that gets the context. This output function will be used in the apply function along a dataframe
-Note that input to the get_context function should be of the following orders: donor_id, chromosome, chrom_start, chrom_end, reference_genome_allele, mutated_from_base, mutated_to_base
+Note that input to the get_context function should be of the following orders if format_ is vcf (default):
+donor_id, chromosome, chrom_start, chrom_end, reference_genome_allele, mutated_from_base, mutated_to_base
+or this order if format_ is simplified
+donor_id (SampleID), chromosome (Chr), position (Pos), reference_base (Ref), mutated_base (Alt)
 }
 \examples{
 if (requireNamespace('seqinr', quietly = TRUE)) {

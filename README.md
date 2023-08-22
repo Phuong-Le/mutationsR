@@ -56,17 +56,48 @@ strand_symmetric('A[A>G]T')
 #> [1] "A[T>C]T"
 ```
 
-If you have a MAF file (mutation data provided by the ICGC portal), you
-can compute the k-mer mutations, given the reference genome sequence
-like so
+If you have a MAF or VCF file (mutation data provided by the ICGC
+portal), you can compute the k-mer mutations, given the reference genome
+sequence like so - note that the columns have to be in this order:
+donor_id, chromosome, chrom_start, chrom_end, reference_genome_allele,
+mutated_from_base, mutated_to_base
 
 ``` r
 library(mutationsR)
 if (requireNamespace("seqinr", quietly = TRUE)) {
-mut_dt = data.frame(donor_id = c('PD1','PD2'), chromosome = c('3', 'X'), chrom_start = c(5,7), chrom_end = c(5,7), reference_genome_allele = c('A','C'), mutated_from_base = c('A','C'), mutated_to_base = c('T', 'A'))
-seq = seqinr::s2c('AGCTAGCTGA')
-get_context = get_context_param(seq, k = 3)
-apply(mut_dt, MARGIN = 1, get_context)
+  mut_dt = data.frame(
+    donor_id = c('PD1', 'PD2'),
+    chromosome = c('3', 'X'),
+    chrom_start = c(5, 7),
+    chrom_end = c(5, 7),
+    reference_genome_allele = c('A', 'C'),
+    mutated_from_base = c('A', 'C'),
+    mutated_to_base = c('T', 'A')
+  )
+  seq = seqinr::s2c('AGCTAGCTGA')
+  get_context = get_context_param(seq, k = 3)
+  apply(mut_dt, MARGIN = 1, get_context)
+}
+#> [1] "T[A>T]G" "G[C>A]T"
+```
+
+option to use the simplified version of VCF - note that the columns have
+to be in this order: donor_id (SampleID), chromosome (Chr), position
+(Pos), reference_base (Ref), mutated_base (Alt)
+
+``` r
+library(mutationsR)
+if (requireNamespace("seqinr", quietly = TRUE)) {
+  mut_dt = data.frame(
+    SampleID = c("PD1", "PD2"),
+    Chr = c("3", "X"),
+    Pos = c(5, 7),
+    Ref = c("A", "C"),
+    Alt = c("T", "A")
+  )
+  seq = seqinr::s2c("AGCTAGCTGA")
+  get_context = get_context_param(seq, k = 3, format_ = 'simplified')
+  apply(mut_dt, MARGIN = 1, get_context)
 }
 #> [1] "T[A>T]G" "G[C>A]T"
 ```
