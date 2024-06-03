@@ -126,6 +126,8 @@ gen_contexts(3)
 #> [92] "G[T>G]T" "T[T>G]A" "T[T>G]C" "T[T>G]G" "T[T>G]T"
 ```
 
+### Mutation spectra plotting
+
 You can also plot mutation spectra, for example
 
 ``` r
@@ -137,3 +139,22 @@ spectra_plot(spectra_dt)
 ```
 
 <img src="man/figures/README-mutation spectra-1.png" width="100%" />
+
+### Mutational signatures and phylogenetics
+
+The package also provides several functions to analyse mutations
+together with phylogenetic trees they are associated with.
+
+``` r
+library(mutationsR)
+
+plot_signature_by_branches(mut_tree, exposure_by_branch)
+#> Registered S3 method overwritten by 'ggtree':
+#>   method      from 
+#>   identify.gg ggfun
+```
+
+<img src="man/figures/README-phylogenetics-1.png" width="100%" />
+
+Besides, it is also possible to reconstruct the mutations on the sample
+level if the only data available is the branches with `tree_to_samples`

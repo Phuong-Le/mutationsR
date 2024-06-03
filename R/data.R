@@ -49,4 +49,17 @@
 "mut_tree"
 
 
-
+#' Mutational signature exposure on the branches
+#'
+#' @description
+#' an SBS matrix that has been mapped to the tree nodes (branches)
+#' from the small intestine of one patient.
+#' The tree is stored in `mut_tree`
+#' The mutation burden used to calculate this object was from `mut_by_branch`
+#'
+#' @format ## `exposure in long format`
+#' A data frame with 220 rows and 3 columns,
+#' with columns being the branch_id, the signature name, and the exposure by that signature on that branch
+#'
+#' @source <https://github.com/YichenWang1/small_bowel/blob/main/data/mutation_matrices/sbs_mapped_to_branches.txt>
+"exposure_by_branch"

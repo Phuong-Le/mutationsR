@@ -51,6 +51,6 @@ tree_to_samples = function(branches, tree, included_columns = NULL) {
     sample_names = c(sample_names, tree$label[tree$node == sample])
   }
   samples$sample_id = sample_names
-  samples = dplyr::select(samples, c('sample_id', included_columns))
+  samples = dplyr::select(samples, all_of(c('sample_id', included_columns)))
   return(samples)
 }
