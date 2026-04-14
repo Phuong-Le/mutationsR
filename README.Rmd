@@ -133,6 +133,26 @@ plot_signature_by_branches(mut_tree, exposure_by_branch)
 
 ```
 
+You can also use the package to calculate all the ancestral nodes given each node or tips (remember they are different functions)
+
+```{r node calculations}
+library(mutationsR)
+library(ggtree)
+
+ggtree(mut_tree) + geom_text(aes(label = node), nudge_y = 0.1, colour = 'blue') + geom_tiplab() # get the sense of what the tree looks like
+
+# get all ancestral nodes for node 16 (which is also the tip for sample PD28690bt_SB3_C5)
+get_all_ancestors(mut_tree, node = 16)
+# if inputing its direct parent, the first element should disappear
+get_all_ancestors(mut_tree, node = 39)
+
+# similarly for tips
+get_all_ancestors_from_tips(mut_tree, tip = "PD28690bt_SB3_C5")
+```
+
+
+
+
 Besides, it is also possible to reconstruct the mutations on the sample level if the only data available is the branches with `tree_to_samples`
 
 

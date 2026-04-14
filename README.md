@@ -149,12 +149,41 @@ together with phylogenetic trees they are associated with.
 library(mutationsR)
 
 plot_signature_by_branches(mut_tree, exposure_by_branch)
-#> Registered S3 method overwritten by 'ggtree':
-#>   method      from 
-#>   identify.gg ggfun
 ```
 
 <img src="man/figures/README-phylogenetics-1.png" width="100%" />
+
+You can also use the package to calculate all the ancestral nodes given
+each node or tips (remember they are different functions)
+
+``` r
+library(mutationsR)
+library(ggtree)
+#> ggtree v3.16.0 Learn more at https://yulab-smu.top/contribution-tree-data/
+#> 
+#> Please cite:
+#> 
+#> Guangchuang Yu. Using ggtree to visualize data on tree-like structures.
+#> Current Protocols in Bioinformatics. 2020, 69:e96. doi:10.1002/cpbi.96
+
+ggtree(mut_tree) + geom_text(aes(label = node), nudge_y = 0.1, colour = 'blue') + geom_tiplab() # get the sense of what the tree looks like
+```
+
+<img src="man/figures/README-node calculations-1.png" width="100%" />
+
+``` r
+
+# get all ancestral nodes for node 16 (which is also the tip for sample PD28690bt_SB3_C5)
+get_all_ancestors(mut_tree, node = 16)
+#> [1] 39 38 30 29 28 23 22
+# if inputing its direct parent, the first element should disappear
+get_all_ancestors(mut_tree, node = 39)
+#> [1] 38 30 29 28 23 22
+
+# similarly for tips
+get_all_ancestors_from_tips(mut_tree, tip = "PD28690bt_SB3_C5")
+#> [1] 39 38 30 29 28 23 22
+```
 
 Besides, it is also possible to reconstruct the mutations on the sample
 level if the only data available is the branches with `tree_to_samples`
